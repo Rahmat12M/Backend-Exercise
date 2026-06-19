@@ -8,7 +8,13 @@ const registerParticipant = async (req, res) => {
     if (!deviceId || !role || !positionNumber || !browser || !os) {
       return res.status(400).json({ message: "Missing fields" });
     }
+    const validRoles = ["visitor", "performer", "controller"];
 
+        if (!validRoles.includes(role)) {
+          return res.status(400).json({
+            message: "Invalid role"
+          });
+        }
     const result = await pool.query(
       `
       INSERT INTO participants (
