@@ -12,7 +12,7 @@ const createLog = async (req, res) => {
     } = req.body;
 
     if (!deviceId || !type || !timestamp) {
-      return res.status(400).json({ message: "Missing fields" });
+      return res.status(400).json({ message: "missing required fields" });
     }
 
     // 1. check participant exists

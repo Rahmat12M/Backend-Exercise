@@ -4,8 +4,12 @@ const createEvent = async (req, res) => {
   try {
     const { name, location, startedAt } = req.body;
 
+     if (!name) {
+      return res.status(400).json({ message: "event does not exist" });
+    }
+
     if (!name || !location || !startedAt) {
-      return res.status(400).json({ message: "Missing fields" });
+      return res.status(400).json({ message: "emissing required fields" });
     }
 
     const result = await pool.query(
