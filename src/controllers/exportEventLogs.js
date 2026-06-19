@@ -16,6 +16,21 @@ const exportLogs = async (req, res) => {
 
     const logs = result.rows;
 
+          const validTypes = [
+        "joined",
+        "disconnected",
+        "reconnected",
+        "position_updated",
+        "animation_triggered",
+        "sound_triggered",
+      ];
+
+      if (!validTypes.includes(type)) {
+        return res.status(400).json({
+          message: "Invalid log type"
+        });
+      }
+
     // JSON export
     if (!format || format === "json") {
       return res.json(logs);
